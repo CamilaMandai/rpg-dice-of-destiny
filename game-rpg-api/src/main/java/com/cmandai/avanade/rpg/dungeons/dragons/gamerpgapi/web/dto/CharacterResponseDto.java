@@ -1,4 +1,4 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import lombok.*;

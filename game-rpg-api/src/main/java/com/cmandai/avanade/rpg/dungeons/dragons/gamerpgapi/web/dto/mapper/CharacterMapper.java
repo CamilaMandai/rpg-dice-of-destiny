@@ -1,7 +1,7 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.mapper;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.mapper;
 
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.CharacterRequest;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.CharacterResponseDto;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.CharacterRequest;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.CharacterResponseDto;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import org.modelmapper.ModelMapper;
 

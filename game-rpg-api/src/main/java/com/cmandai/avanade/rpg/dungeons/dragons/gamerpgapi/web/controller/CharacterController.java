@@ -1,9 +1,7 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.controller;
 
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.CharacterCreateDto;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.CharacterResponseDto;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.CharacterUpdateDto;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.controller.dto.mapper.CharacterMapper;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.*;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.mapper.CharacterMapper;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;
 import jakarta.validation.Valid;
@@ -11,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor

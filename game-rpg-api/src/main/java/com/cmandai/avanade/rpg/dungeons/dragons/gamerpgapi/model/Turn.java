@@ -27,7 +27,7 @@ public class Turn implements Serializable {
     @Column(name="damage")
     private Long damage;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="battle_id", nullable = false)
     private Battle battle;
 

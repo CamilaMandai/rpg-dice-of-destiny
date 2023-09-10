@@ -1,28 +1,21 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
-
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.Fighter;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Dice;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor
 public class FighterImpl implements Fighter {
 
-    Character character;
-    Long lifePoints;
-    private WhoPlays player;
-    public enum WhoPlays {
-        HUMAN_PLAYER, BOT_PLAYER
-    }
+    private Character character;
+    private Long lifePoints;
 
-    public FighterImpl(Character character, WhoPlays player) {
+    public FighterImpl(Character character) {
         this.character = character;
         this.lifePoints = character.getLifePoints();
-        this.player = player;
     }
 
     @Override
@@ -47,4 +40,5 @@ public class FighterImpl implements Fighter {
         Long diceDamage = Dice.roll(character.getDiceQuantity(),character.getDiceSides()).longValue();
         return diceDamage + character.getStrength();
     }
+
 }

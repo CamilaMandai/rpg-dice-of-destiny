@@ -1,9 +1,12 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service;
 
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.CharacterUniqueViolationException;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.EntityNotFoundException;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +20,22 @@ public class CharacterServiceImpl implements CharacterService{
     @Override
     @Transactional
     public Character save(Character character) {
-        return characterRepository.save(character);
+        try{
+            return characterRepository.save(character);
+        } catch (DataIntegrityViolationException exception) {
+            throw new CharacterUniqueViolationException(
+                    String.format(
+                            "Character '%s' already exists", character.getName()
+                    ));
+        }
     }
 
     @Override
     @Transactional(readOnly = true)
     public Character findById(Long id) {
         return characterRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Personagem não encontrado")
+                () -> new EntityNotFoundException(
+                        String.format("Personagem com id %s não encontrado", id))
         );
     }
 
@@ -45,6 +56,12 @@ public class CharacterServiceImpl implements CharacterService{
     @Transactional
     @Override
     public void delete(Long id) {
-        characterRepository.deleteById(id);
+            if(characterRepository.existsById(id)) {
+                characterRepository.deleteById(id);
+            } else {
+                throw new EntityNotFoundException(
+                        String.format("Character id %s does not exist", id)
+                );
+            }
     }
 }

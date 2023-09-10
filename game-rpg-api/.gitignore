@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/cmandai/avanade/rpg/dungeons/dragons/gamerpgapi/web/controller/TesteController.java

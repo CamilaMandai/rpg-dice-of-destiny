@@ -1,7 +1,6 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.controller;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Turn;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.repository.TurnRepository;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.TurnCreateDto;
 import lombok.RequiredArgsConstructor;

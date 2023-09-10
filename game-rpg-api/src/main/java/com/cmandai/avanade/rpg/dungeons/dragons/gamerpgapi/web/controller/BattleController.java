@@ -2,6 +2,7 @@ package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.controller;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.BattleService;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Dice;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.BattleCreateDto;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.BattleResponseDto;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.mapper.BattleMapper;

@@ -1,9 +1,11 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.EntityNotFoundException;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.repository.BattleRepository;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.BattleService;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class BattleServiceImpl implements BattleService{
+public class BattleServiceImpl implements BattleService {
 
     private final BattleRepository battleRepository;
     private final CharacterService characterService;

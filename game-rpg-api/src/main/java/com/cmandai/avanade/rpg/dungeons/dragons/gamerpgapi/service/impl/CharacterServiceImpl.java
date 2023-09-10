@@ -1,9 +1,10 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.CharacterUniqueViolationException;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.EntityNotFoundException;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.repository.CharacterRepository;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CharacterServiceImpl implements CharacterService{
+public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepository characterRepository;
     @Override

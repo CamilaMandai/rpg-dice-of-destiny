@@ -10,12 +10,18 @@ import java.io.Serializable;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class Battle implements Serializable {
 
+    public Battle(String playerName, Character playerCharacter, Character botCharacter){
+        this.playerName = playerName;
+        this.playerCharacter = playerCharacter;
+        this.botCharacter = botCharacter;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
-    @Column(name="player_name")
+    @Column(name="player_name", nullable = false, length = 100)
     private String playerName;
 
     @Column(name="who_starts")
@@ -26,10 +32,10 @@ public class Battle implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "character_player_id")
+    @JoinColumn(name = "character_player_id", nullable = false)
     private Character playerCharacter;
 
     @ManyToOne
-    @JoinColumn(name = "character_bot_id")
+    @JoinColumn(name = "character_bot_id", nullable = false)
     private Character botCharacter;
 }

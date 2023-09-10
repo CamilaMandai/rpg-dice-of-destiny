@@ -35,7 +35,7 @@ public class CharacterServiceImpl implements CharacterService{
     public Character findById(Long id) {
         return characterRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(
-                        String.format("Personagem com id %s não encontrado", id))
+                        String.format("Character with id %s not found", id))
         );
     }
 

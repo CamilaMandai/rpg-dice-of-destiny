@@ -25,6 +25,11 @@ public class TurnServiceImpl implements TurnService {
     }
 
     @Override
+    public Turn save(Turn turn) {
+        return turnRepository.save(turn);
+    }
+
+    @Override
     public List<Turn> findAll() {
         return turnRepository.findAll();
     }

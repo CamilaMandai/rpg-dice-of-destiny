@@ -28,6 +28,13 @@ public class BattleServiceImpl implements BattleService {
         return battleRepository.save(battle);
     }
 
+    @Transactional
+    @Override
+    public Battle save(String playerName, Character playerCharacter, Character botCharacter) {
+        Battle battle = new Battle(playerName, playerCharacter, botCharacter);
+        return battleRepository.save(battle);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Battle findById(Long id) {

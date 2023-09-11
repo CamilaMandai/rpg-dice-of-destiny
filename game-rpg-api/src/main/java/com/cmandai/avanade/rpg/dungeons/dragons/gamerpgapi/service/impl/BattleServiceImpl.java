@@ -3,9 +3,12 @@ package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.EntityNotFoundException;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Turn;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.repository.BattleRepository;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.BattleService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.BattleLogsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +58,4 @@ public class BattleServiceImpl implements BattleService {
     public List<Battle> findAll(){
         return battleRepository.findAll();
     }
-
 }

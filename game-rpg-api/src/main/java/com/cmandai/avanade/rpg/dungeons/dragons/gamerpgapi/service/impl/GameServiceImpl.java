@@ -6,10 +6,10 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.*;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Rand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -40,6 +40,12 @@ public class GameServiceImpl implements GameService {
         }
         turnService.saveAll(turns);
         return battle;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Long attack(Long battleId, Integer turnRound) {
+        return turnService.findByRoundAndBattle(turnRound, battleId).getAtackPoints();
     }
 
     private void playGame(Fighter firstPlayer, Fighter secondPlayer) {

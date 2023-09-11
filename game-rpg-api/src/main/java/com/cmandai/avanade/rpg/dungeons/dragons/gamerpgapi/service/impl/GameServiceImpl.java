@@ -3,6 +3,7 @@ package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.*;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.*;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Rand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public Battle play(String playerName, Character iPlayer, Character iBot) {
         player = new Fighter(iPlayer);
-        bot = iBot == null ? new Fighter(randomMonster()) : new Fighter(iBot);
+        bot = iBot == null ? new Fighter(Rand.randomMonster(characterService)) : new Fighter(iBot);
         round=1;
         battle = battleService.save(playerName, player.getCharacter(), bot.getCharacter());
         boolean playerStarts = player.rollDiceToStart()>bot.rollDiceToStart();
@@ -40,13 +41,6 @@ public class GameServiceImpl implements GameService {
         turnService.saveAll(turns);
         return battle;
     }
-
-    private Character randomMonster() {
-            List<Character> monsters = characterService.findAllMonsters();
-            Random random = new Random();
-            int randomIndex = random.nextInt(monsters.size());
-            return monsters.get(randomIndex);
-        }
 
     private void playGame(Fighter firstPlayer, Fighter secondPlayer) {
         do {

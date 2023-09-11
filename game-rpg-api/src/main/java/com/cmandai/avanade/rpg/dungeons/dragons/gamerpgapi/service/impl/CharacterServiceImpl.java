@@ -6,7 +6,9 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.repository.CharacterRepository;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.support.NullValue;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,11 +41,15 @@ public class CharacterServiceImpl implements CharacterService {
                         String.format("Character with id %s not found", id))
         );
     }
-
     @Override
     @Transactional(readOnly = true)
     public List<Character> findAll() {
         return characterRepository.findAll();
+    }
+
+    @Override
+    public List<Character> findAllMonsters() {
+        return characterRepository.findAllMonsters();
     }
 
     @Override

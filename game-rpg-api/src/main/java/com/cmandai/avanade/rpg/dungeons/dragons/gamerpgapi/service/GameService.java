@@ -4,5 +4,5 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 
 public interface GameService {
-    public Battle startGame(String playerName, Character iPlayer, Character iBot);
+    public Battle play(String playerName, Character iPlayer, Character iBot);
 }

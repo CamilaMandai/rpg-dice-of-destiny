@@ -14,5 +14,7 @@ public interface TurnService {
 
     public Turn findByRoundAndBattle(Integer round, Long battleId);
 
+    public List<Turn> findAllByBattleId(Long id);
+
     public List<Turn> findAll();
 }

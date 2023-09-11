@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class BattleResponseDto {
+public class BattleResponseDTO {
     private String playerName;
     private Character playerCharacter;
     private Character botCharacter;

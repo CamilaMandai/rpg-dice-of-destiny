@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CharacterResponseDto {
+public class CharacterResponseDTO {
     private Long id;
     private String name;
     private Long lifePoints;

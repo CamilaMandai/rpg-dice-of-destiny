@@ -47,4 +47,9 @@ public class TurnServiceImpl implements TurnService {
         Battle battle = battleService.findById(battleId);
         return turnRepository.findByRoundAndBattle(round, battle);
     }
+
+    @Override
+    public List<Turn> findAllByBattleId(Long id) {
+        return turnRepository.findAllByBattleId(id);
+    }
 }

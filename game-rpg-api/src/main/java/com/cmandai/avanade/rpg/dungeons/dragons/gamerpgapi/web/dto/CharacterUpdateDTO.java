@@ -1,12 +1,16 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
-public class CharacterCreateDto extends CharacterRequest{
-    @NotBlank
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class CharacterUpdateDTO extends CharacterRequest {
     private String name;
     @Min(value = 1, message = "Life Points should be at least 1")
     private Long lifePoints;
@@ -21,6 +25,5 @@ public class CharacterCreateDto extends CharacterRequest{
     @Min(value = 4, message = "The number of sides of the dice(s) should be at least 4")
     @Max(value = 100, message = "The number of sides of the dices should not exceed 100")
     private Integer diceSides;
-    @NotNull
     private Character.Personality personality;
 }

@@ -1,14 +1,17 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Fighter;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Turn;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.BattleService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.PlayService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -17,17 +20,16 @@ public class PlayServiceImpl implements PlayService {
     private final BattleService battleService;
     private final TurnService turnService;
 
-    private final Fighter player;
-    private final Fighter bot;
+    private Fighter player;
+    private Fighter bot;
     private Battle battle;
+    private List<Turn> turns = new ArrayList<Turn>();
     private Integer round;
 
     @Override
-    public Fighter startGame(String playerName, Fighter iPlayer, Fighter iBot) {
-        player.setLifePoints(iPlayer.getCharacter().getLifePoints());
-        player.setCharacter(iPlayer.getCharacter());
-        bot.setLifePoints(iBot.getCharacter().getLifePoints());
-        bot.setCharacter(iBot.getCharacter());
+    public Battle startGame(String playerName, Character iPlayer, Character iBot) {
+        player = new Fighter(iPlayer);
+        bot = new Fighter(iBot);
         round=1;
         battle = battleService.save(playerName, player.getCharacter(), bot.getCharacter());
         boolean playerStarts = player.rollDiceToStart()>bot.rollDiceToStart();
@@ -37,7 +39,8 @@ public class PlayServiceImpl implements PlayService {
         } else {
             playGame(bot, player);
         }
-        return whoLost();
+        turnService.saveAll(turns);
+        return battle;
     }
 
     private void playGame(Fighter firstPlayer, Fighter secondPlayer) {
@@ -55,28 +58,17 @@ public class PlayServiceImpl implements PlayService {
         Long defense = defender.defend();
         Long damagePoints = (attack > defense) ? attacker.causeDamage() : 0L;
         defender.loseLifePoints(damagePoints);
-        saveTurn(attack, defense, damagePoints);
+        addTurn(attack, defense, damagePoints, attacker.getCharacter().getName());
         round+=1;
     }
 
-    private void saveTurn(Long attack, Long defense, Long damagePoints) {
-        Turn turn = new Turn(round, battle);
-        turn.setAtackPoints(attack);
-        turn.setDefensePoints(defense);
-        turn.setDamage(damagePoints);
-        turnService.save(turn);
+    private void addTurn(Long attack, Long defense, Long damagePoints, String characterName) {
+        Turn turn = new Turn(round, attack, defense,damagePoints,battle);
+        turns.add(turn);
     }
 
     private boolean isGameOver() {
-        return player.getLifePoints() <= 0 || bot.getLifePoints() <= 0;
+        return player.getLifePoints() == 0 || bot.getLifePoints() == 0;
     }
 
-    private Fighter whoLost() {
-        if (player.getLifePoints() <= 0) {
-            player.setLifePoints(0L);
-            return player;
-        }
-        bot.setLifePoints(0L);
-        return bot;
-    }
 }

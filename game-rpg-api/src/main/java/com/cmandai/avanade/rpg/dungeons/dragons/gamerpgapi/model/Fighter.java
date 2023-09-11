@@ -38,7 +38,7 @@ public class Fighter {
     }
 
     public void loseLifePoints(Long points){
-        lifePoints-=points;
+        lifePoints = points>=lifePoints ? 0 : lifePoints-points;
     }
 
 }

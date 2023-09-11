@@ -7,7 +7,10 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.BattleCreateD
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.BattleResponseDto;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.mapper.BattleMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,12 +18,22 @@ import org.springframework.web.bind.annotation.*;
 public class BattleController {
 
     private final BattleService battleService;
-    @PostMapping
-    public BattleResponseDto save(@RequestBody BattleCreateDto battleDTO) {
-        Battle battle = battleService.save(
-                battleDTO.playerName(),
-                battleDTO.playerCharacterId(),
-                battleDTO.botCharacterId());
-        return BattleMapper.toDto(battle);
+//    @PostMapping
+//    public BattleResponseDto save(@RequestBody BattleCreateDto battleDTO) {
+//        Battle battle = battleService.save(
+//                battleDTO.playerName(),
+//                battleDTO.playerCharacterId(),
+//                battleDTO.botCharacterId());
+//        return BattleMapper.toDto(battle);
+//    }
+
+    @GetMapping
+    public ResponseEntity<List<Battle>> getAll() {
+        return ResponseEntity.ok(battleService.findAll());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Battle> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(battleService.findById(id));
     }
 }

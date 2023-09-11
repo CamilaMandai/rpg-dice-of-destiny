@@ -1,7 +1,8 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service;
 
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Fighter;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 
 public interface PlayService {
-    public Fighter startGame(String playerName, Fighter player, Fighter bot);
+    public Battle startGame(String playerName, Character iPlayer, Character iBot);
 }

@@ -31,8 +31,11 @@ public class Turn implements Serializable {
     @JoinColumn(name="battle_id", nullable = false)
     private Battle battle;
 
-    public Turn(Integer round, Battle battle) {
+    public Turn(Integer round, Long attack, Long defense, Long damagePoints, Battle battle) {
         this.round = round;
         this.battle = battle;
+        atackPoints = attack;
+        defensePoints = defense;
+        damage = damagePoints;
     }
 }

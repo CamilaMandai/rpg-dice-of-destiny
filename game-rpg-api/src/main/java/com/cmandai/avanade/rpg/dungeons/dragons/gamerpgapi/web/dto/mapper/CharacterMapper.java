@@ -14,6 +14,7 @@ public class CharacterMapper {
     public static CharacterResponseDto toDTO(Character character){
         String dice = character.getDiceQuantity() + "d" + character.getDiceSides();
         CharacterResponseDto dto = new CharacterResponseDto(
+                character.getId(),
                 character.getName(),
                 character.getLifePoints(),
                 character.getStrength(),

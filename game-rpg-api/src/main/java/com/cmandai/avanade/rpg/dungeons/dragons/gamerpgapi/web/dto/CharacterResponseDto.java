@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class CharacterResponseDto {
+    private Long id;
     private String name;
     private Long lifePoints;
     private Long strength;

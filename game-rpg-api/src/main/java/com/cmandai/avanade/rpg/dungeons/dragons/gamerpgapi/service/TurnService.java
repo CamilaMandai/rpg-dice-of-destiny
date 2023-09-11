@@ -10,6 +10,8 @@ public interface TurnService {
 
     public Turn save(Turn turn);
 
+    public List<Turn> saveAll(List<Turn> turns);
+
     public Turn findByRoundAndBattle(Integer round, Long battleId);
 
     public List<Turn> findAll();

@@ -19,6 +19,12 @@ public class BattleServiceImpl implements BattleService {
     private final BattleRepository battleRepository;
     private final CharacterService characterService;
 
+    @Override
+    @Transactional
+    public Battle save(Battle battle) {
+        return battleRepository.save(battle);
+    }
+
     @Transactional
     @Override
     public Battle save(String playerName, Long playerCharacterId, Long botCharacterId) {
@@ -40,7 +46,7 @@ public class BattleServiceImpl implements BattleService {
     public Battle findById(Long id) {
         return battleRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(
-                        String.format("Battle with id %s not found", id))
+                        String.format("Battle with id %s does not exist", id))
         );
     }
 

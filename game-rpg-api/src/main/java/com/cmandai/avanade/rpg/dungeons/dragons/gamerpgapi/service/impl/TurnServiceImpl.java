@@ -21,12 +21,20 @@ public class TurnServiceImpl implements TurnService {
     @Override
     public Turn save(Integer round, Long battleid) {
         Battle battle = battleService.findById(battleid);
-        return turnRepository.save(new Turn(round, battle));
+        Turn turn = new Turn();
+        turn.setBattle(battle);
+        turn.setRound(round);
+        return turnRepository.save(turn);
     }
 
     @Override
     public Turn save(Turn turn) {
         return turnRepository.save(turn);
+    }
+
+    @Override
+    public List<Turn> saveAll(List<Turn> turns) {
+        return turnRepository.saveAll(turns);
     }
 
     @Override

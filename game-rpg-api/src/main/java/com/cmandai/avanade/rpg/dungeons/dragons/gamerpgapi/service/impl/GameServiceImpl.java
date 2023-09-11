@@ -1,24 +1,22 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.*;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Fighter;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Turn;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.BattleService;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.PlayService;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
-public class PlayServiceImpl implements PlayService {
+public class GameServiceImpl implements GameService {
 
     private final BattleService battleService;
     private final TurnService turnService;
+    private final CharacterService characterService;
 
     private Fighter player;
     private Fighter bot;
@@ -27,9 +25,9 @@ public class PlayServiceImpl implements PlayService {
     private Integer round;
 
     @Override
-    public Battle startGame(String playerName, Character iPlayer, Character iBot) {
+    public Battle play(String playerName, Character iPlayer, Character iBot) {
         player = new Fighter(iPlayer);
-        bot = new Fighter(iBot);
+        bot = iBot == null ? new Fighter(randomMonster()) : new Fighter(iBot);
         round=1;
         battle = battleService.save(playerName, player.getCharacter(), bot.getCharacter());
         boolean playerStarts = player.rollDiceToStart()>bot.rollDiceToStart();
@@ -42,6 +40,13 @@ public class PlayServiceImpl implements PlayService {
         turnService.saveAll(turns);
         return battle;
     }
+
+    private Character randomMonster() {
+            List<Character> monsters = characterService.findAllMonsters();
+            Random random = new Random();
+            int randomIndex = random.nextInt(monsters.size());
+            return monsters.get(randomIndex);
+        }
 
     private void playGame(Fighter firstPlayer, Fighter secondPlayer) {
         do {

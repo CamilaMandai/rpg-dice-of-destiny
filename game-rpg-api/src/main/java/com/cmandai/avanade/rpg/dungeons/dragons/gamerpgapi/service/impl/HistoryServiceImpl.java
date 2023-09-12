@@ -39,7 +39,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
     @Transactional(readOnly = true)
     @Override
-    public Turn findBattleByIdAndTurnById(Integer round, Long battleId) {
+    public Turn findBattleByIdAndTurnRound(Integer round, Long battleId) {
         return turnService.findByRoundAndBattle(round, battleId);
     }
 

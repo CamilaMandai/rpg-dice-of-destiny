@@ -59,8 +59,8 @@ public class TurnServiceImpl implements TurnService {
 
     @Transactional(readOnly = true)
     @Override
-    public Turn findByRoundAndBattle(Integer round, Long battleId) {
+    public Turn findByRoundAndBattle(Integer roundNumber, Long battleId) {
         Battle battle = battleService.findById(battleId);
-        return turnRepository.findByRoundAndBattle(round, battle);
+        return turnRepository.findByRoundAndBattle(roundNumber, battle);
     }
 }

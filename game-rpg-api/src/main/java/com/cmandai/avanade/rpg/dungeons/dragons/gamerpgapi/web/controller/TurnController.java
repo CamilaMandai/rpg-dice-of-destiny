@@ -30,7 +30,7 @@ public class TurnController {
 
     @GetMapping("{battleId}/{roundNumber}")
     public Turn getByRoundAndBattle(@PathVariable Long battleId, @PathVariable Integer roundNumber) {
-        return historyService.findBattleByIdAndTurnById(roundNumber, battleId);
+        return historyService.findBattleByIdAndTurnRound(roundNumber, battleId);
     }
 
     @GetMapping("{battleId}")

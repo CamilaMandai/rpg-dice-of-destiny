@@ -8,5 +8,5 @@ import java.util.List;
 public interface HistoryService {
     public List<BattleLogsDTO> findAllBattlesWithTurns();
     public BattleLogsDTO findBattleByIdWithTurns(Long id);
-    public Turn findBattleByIdAndTurnById(Integer round, Long battleId);
+    public Turn findBattleByIdAndTurnRound(Integer round, Long battleId);
 }

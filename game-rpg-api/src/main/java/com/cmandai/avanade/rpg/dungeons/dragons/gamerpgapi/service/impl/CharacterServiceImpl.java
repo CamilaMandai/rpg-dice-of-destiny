@@ -67,7 +67,7 @@ public class CharacterServiceImpl implements CharacterService {
                 characterRepository.deleteById(id);
             } else {
                 throw new EntityNotFoundException(
-                        String.format("Character id %s does not exist", id)
+                        String.format("Character with id %s not found", id)
                 );
             }
     }

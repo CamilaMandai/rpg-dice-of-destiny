@@ -18,8 +18,8 @@ public class CharacterCreateDTO extends CharacterRequest {
     private Long agility;
     @Min(value = 1, message = "Dice quantity should be at least 1")
     private Integer diceQuantity;
-    @Min(value = 4, message = "The number of sides of the dice(s) should be at least 4")
-    @Max(value = 100, message = "The number of sides of the dices should not exceed 100")
+    @Min(value = 4, message = "The number of sides of the dice should be at least 4")
+    @Max(value = 100, message = "The number of sides of the dice should not exceed 100")
     private Integer diceSides;
     @NotNull
     private Character.Personality personality;

@@ -17,9 +17,5 @@ public interface TurnService {
 
     public List<Turn> findAllByBattleId(Long id);
 
-    public BattleLogsDTO findTurnsByBattleId(Long id);
-
-    public List<BattleLogsDTO> findAllWithBattle();
-
     public List<Turn> findAll();
 }

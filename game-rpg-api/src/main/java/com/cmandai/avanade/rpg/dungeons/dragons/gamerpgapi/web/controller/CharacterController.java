@@ -1,6 +1,8 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.controller;
 
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.*;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.characterDTO.CharacterCreateDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.characterDTO.CharacterResponseDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.characterDTO.CharacterUpdateDTO;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.mapper.CharacterMapper;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;

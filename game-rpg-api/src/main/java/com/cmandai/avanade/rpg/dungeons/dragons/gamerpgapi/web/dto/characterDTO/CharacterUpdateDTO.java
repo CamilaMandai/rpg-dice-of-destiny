@@ -1,4 +1,4 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.characterDTO;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import jakarta.validation.constraints.Max;

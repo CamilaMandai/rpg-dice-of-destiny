@@ -4,7 +4,7 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.GameService;
-import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.*;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.gameDTO.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

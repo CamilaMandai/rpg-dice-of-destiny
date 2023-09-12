@@ -53,32 +53,14 @@ public class TurnServiceImpl implements TurnService {
 
     @Transactional(readOnly = true)
     @Override
-    public Turn findByRoundAndBattle(Integer round, Long battleId) {
-        Battle battle = battleService.findById(battleId);
-        return turnRepository.findByRoundAndBattle(round, battle);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public List<Turn> findAllByBattleId(Long id) {
         return turnRepository.findAllByBattleId(id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public BattleLogsDTO findTurnsByBattleId(Long id) {
-        Battle battle = battleService.findById(id);
-        List<Turn> turns = findAllByBattleId(id);
-        return new BattleLogsDTO(battle, turns);
+    public Turn findByRoundAndBattle(Integer round, Long battleId) {
+        Battle battle = battleService.findById(battleId);
+        return turnRepository.findByRoundAndBattle(round, battle);
     }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<BattleLogsDTO> findAllWithBattle() {
-        List<Battle> battles = battleService.findAll();
-        List<BattleLogsDTO> turns = battles.stream().map(battle -> findTurnsByBattleId(battle.getId())).collect(Collectors.toList());
-
-        return turns;
-    }
-
 }

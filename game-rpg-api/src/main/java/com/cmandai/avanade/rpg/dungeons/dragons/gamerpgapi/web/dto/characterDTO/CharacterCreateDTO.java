@@ -1,11 +1,11 @@
-package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto;
+package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.characterDTO;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
-public class CharacterCreateDTO extends CharacterRequest{
+public class CharacterCreateDTO extends CharacterRequest {
     @NotBlank
     private String name;
     @Min(value = 1, message = "Life Points should be at least 1")

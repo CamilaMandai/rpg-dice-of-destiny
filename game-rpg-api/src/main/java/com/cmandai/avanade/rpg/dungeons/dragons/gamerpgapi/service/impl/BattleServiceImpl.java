@@ -10,6 +10,8 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.CharacterServ
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.BattleLogsDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,4 +60,10 @@ public class BattleServiceImpl implements BattleService {
     public List<Battle> findAll(){
         return battleRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public List<Battle> searchByPlayerName(String playerName) {
+        return battleRepository.searchByPlayerName(playerName.toLowerCase());
+    }
+
 }

@@ -2,6 +2,8 @@ package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -11,4 +13,5 @@ public interface BattleService {
     public Battle save(Battle battle);
     public Battle findById(Long id);
     public List<Battle> findAll();
+    public List<Battle> searchByPlayerName(String playerName);
 }

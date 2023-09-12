@@ -7,6 +7,7 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.HistoryServic
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.BattleLogsDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,5 +49,10 @@ public class HistoryController {
     @GetMapping("battles/{battleId}/turn-round/{roundNumber}")
     public Turn getByRoundAndBattle(@PathVariable Long battleId, @PathVariable Integer roundNumber) {
         return historyService.findBattleByIdAndTurnRound(roundNumber, battleId);
+    }
+
+    @GetMapping("{searchPlayerName}")
+    public List<Battle> searchByPlayerName(@PathVariable String searchPlayerName) {
+        return battleService.searchByPlayerName(searchPlayerName);
     }
 }

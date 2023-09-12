@@ -6,7 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="character")
+@Table(name="characters")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class Character implements Serializable {
 

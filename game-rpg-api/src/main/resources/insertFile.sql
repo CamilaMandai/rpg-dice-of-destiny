@@ -1,4 +1,4 @@
-INSERT INTO character (name, life_points, strength,defense, agility, dice_quantity, dice_sides, personality )
+INSERT INTO characters (name, life_points, strength,defense, agility, dice_quantity, dice_sides, personality )
 VALUES
     ('Guerreiro', 20, 7, 5, 6, 1,12, 'HERO'),
     ('Mago', 15, 3, 2, 8, 1,6, 'HERO'),

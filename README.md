@@ -20,10 +20,14 @@ Este aplicativo é um jogo de interpretação de papéis (RPG) de batalhas épic
 
 ## Como Usar
 
-Para começar a jogar, siga estas etapas:
+Para iniciar a aplicação, você precisa ter o Java 17 ou acima instalado.
+
 
 1. Clone este repositório para o seu ambiente de desenvolvimento.
 
-2. Rode o comando `docker-compose up -d` para subir os containers da aplicação
+2. A aplicação utiliza banco de dados PostGreSQL e você pode subir o banco em ambiente 'dockerizado':
+   - Rode o comando `docker-compose up -d` para subir o containers de banco
+
+3. 
 
 ...

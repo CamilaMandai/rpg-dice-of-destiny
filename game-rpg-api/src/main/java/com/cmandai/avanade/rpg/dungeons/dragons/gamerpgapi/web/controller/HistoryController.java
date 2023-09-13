@@ -46,8 +46,10 @@ public class HistoryController {
     }
 
     @GetMapping("battles/turns")
-    public ResponseEntity<List<BattleLogsDTO>> getAllBattlesWithTurns() {
-        return ResponseEntity.ok(historyService.findAllBattlesWithTurns());
+    public ResponseEntity<List<BattleLogsDTO>> getAllBattlesWithTurns(@RequestParam(defaultValue = "0") int page,
+                                                                      @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(historyService.findAllBattlesWithTurns(pageable));
     }
 
     @GetMapping("battles/{id}/turns")

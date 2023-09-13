@@ -55,7 +55,6 @@ public class GameServiceImpl implements GameService {
         return turnService.findByRoundAndBattle(turnRound, battleId).getAtackPoints();
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public Long defend(Long battleId, Integer turnRound) {

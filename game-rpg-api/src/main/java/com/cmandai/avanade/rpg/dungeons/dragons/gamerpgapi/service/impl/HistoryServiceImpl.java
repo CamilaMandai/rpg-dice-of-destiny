@@ -23,8 +23,8 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<BattleLogsDTO> findAllBattlesWithTurns() {
-        List<Battle> battles = battleService.findAll();
+    public List<BattleLogsDTO> findAllBattlesWithTurns(Pageable pageable) {
+        Page<Battle> battles = battleService.findAllBattlesByPage(pageable);
         List<BattleLogsDTO> turns =
                 battles.stream()
                         .map(battle -> findBattleByIdWithTurns(battle.getId()))

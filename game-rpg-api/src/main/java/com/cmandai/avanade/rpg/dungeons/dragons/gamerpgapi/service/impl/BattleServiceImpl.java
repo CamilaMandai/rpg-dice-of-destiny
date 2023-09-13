@@ -25,21 +25,6 @@ public class BattleServiceImpl implements BattleService {
     private final BattleRepository battleRepository;
     private final CharacterService characterService;
 
-    @Override
-    @Transactional
-    public Battle save(Battle battle) {
-        return battleRepository.save(battle);
-    }
-
-    @Transactional
-    @Override
-    public Battle save(String playerName, Long playerCharacterId, Long botCharacterId) {
-        Character playerCharacter = characterService.findById(playerCharacterId);
-        Character botCharacter = characterService.findById(botCharacterId);
-        Battle battle = new Battle(playerName, playerCharacter, botCharacter);
-        return battleRepository.save(battle);
-    }
-
     @Transactional
     @Override
     public Battle save(String playerName, Character playerCharacter, Character botCharacter) {

@@ -25,30 +25,8 @@ public class TurnServiceImpl implements TurnService {
 
     @Transactional
     @Override
-    public Turn save(Integer round, Long battleid) {
-        Battle battle = battleService.findById(battleid);
-        Turn turn = new Turn();
-        turn.setBattle(battle);
-        turn.setRound(round);
-        return turnRepository.save(turn);
-    }
-
-    @Transactional
-    @Override
-    public Turn save(Turn turn) {
-        return turnRepository.save(turn);
-    }
-
-    @Transactional
-    @Override
-    public List<Turn> saveAll(List<Turn> turns) {
+    public List<Turn> saveMany(List<Turn> turns) {
         return turnRepository.saveAll(turns);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public List<Turn> findAll() {
-        return turnRepository.findAll();
     }
 
     @Transactional(readOnly = true)

@@ -38,7 +38,7 @@ public class GameServiceImpl implements GameService {
         } else {
             playGame(bot, player);
         }
-        turnService.saveAll(turns);
+        turnService.saveMany(turns);
         return battle;
     }
 

@@ -7,15 +7,9 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.BattleLog
 import java.util.List;
 
 public interface TurnService {
-    public Turn save(Integer round, Long battleId);
-
-    public Turn save(Turn turn);
-
-    public List<Turn> saveAll(List<Turn> turns);
+    public List<Turn> saveMany(List<Turn> turns);
 
     public Turn findByRoundAndBattle(Integer round, Long battleId);
 
     public List<Turn> findAllByBattleId(Long id);
-
-    public List<Turn> findAll();
 }

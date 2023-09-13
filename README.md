@@ -16,7 +16,7 @@ Este aplicativo é um jogo de interpretação de papéis (RPG) de batalhas épic
 
 - **Cálculo de Dano:** O dano causado depende primeiramente da diferença entre o ataque e a defesa calculados no item anteior. Caso a defesa seja maior que o ataque, o dano final a ser subtraído dos pontos de vida do atacado é calculado pelo valor sorteado pelos dados específicos do atacante somado à sua Força.
 
-- **Histórico de Batalha:** Todas as batalhas são registradas em um log, incluindo informações sobre os personagens envolvidos, informações de ataque, defesa e dano de cada turno e outros detalhes importantes.
+- **Histórico de Batalha:** Todas as batalhas são registradas em um log, incluindo informações sobre o jogador, os personagens envolvidos, informações de ataque, defesa e dano de cada turno e outros detalhes importantes.
 
 - **Endpoints da API:** A API oferece endpoints para realizar ações no jogo, incluindo inicar batalha, ataques, defesas, cálculos de dano e gerenciamento de personagens (Create, Read, Update e Delete).
 
@@ -34,15 +34,38 @@ Este aplicativo é um jogo de interpretação de papéis (RPG) de batalhas épic
 2. A aplicação utiliza banco de dados PostGreSQL, que você pode subir em ambiente 'dockerizado':
    - Rode o comando `docker-compose up -d` para subir o containers de banco
 
-3.   Execute o projeto SpringBoot
+3. Execute o projeto
 4. O projeto estará disponivel em: http://localhost:8080/docs-rpg/swagger-ui/index.html
 
-## Alguns endpoints que você pode chamar:
+## Exemplos de alguns endpoints:
+
+### Crie um novo personagem
+
+```
+POST http://localhost:8080/characters
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Elementista",
+  "lifePoints": 10,
+  "strength": 15,
+  "defense": 2,
+  "agility": 5,
+  "diceQuantity": 3,
+  "diceSides": 4,
+  "personality": "HERO"
+}
+
+RESPONSE: HTTP 201 (Created)
+Location header:  http://localhost:8080/characters/1
+Content: Personagem
+```
 
 ### Requisite informações de todos os Personagens
 
 ```
-http://localhost:8080/api/characters
+http://localhost:8080/characters
 ```
 
 ### Busque personagens por nome ou parte do nome
@@ -51,38 +74,68 @@ http://localhost:8080/api/characters
 http://localhost:8080/characters/search?name=eiro
 
 Response: HTTP 200
-Content: Character List
+Content: Lista de Personagens
 ``` 
 
-### Crie um novo personagem
+### Inicie uma batalha
 
 ```
-POST /api/characters
+POST http://localhost:8080/game/play
 Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Meu Nome",
-  "lifePoints": 20,
-  "strength": 5,
-  "defense": 7,
-  "agility": 5,
-  "diceQuantity": 1,
-  "diceSides": 12,
-  "personality": "HERO"
+  "playerName": "Camila",
+  "playerCharacterId": 1,
+  "botCharacterId": 5
 }
 
-RESPONSE: HTTP 201 (Created)
-Location header:  location: http://localhost:8080/characters/1
+Response: HTTP 201
+Location header: http://localhost:8080/battles/1
+Content: Batalha
+``` 
+
+### Requisite um ataque em uma batalha
+
 ```
+POST http://localhost:8080/game/attack
+Accept: application/json
+Content-Type: application/json
+
+{
+  "battleId": 1,
+  "round": 1
+}
+
+Response: HTTP 200
+Content: Valor do ataque
+``` 
+
+### Recupere uma batalha com detalhes dos turnos
+
+```
+http://localhost:8080/history-log/battles/1
+Response: HTTP 200
+Content: Batalha com lista de turnos
+``` 
+
+
 
 ### Recupere uma lista paginada de batalhas
 
 ```
-http://localhost:8080/battles?page=0&size=10
+http://localhost:8080/history-log/battles?page=0&size=10
+Response: HTTP 200
+Content: Lista paginada
+``` 
+
+### Recupere as batalhas por nome de jogador
+
+```
+http://localhost:8080/history-log/search?player-name=camila
 
 Response: HTTP 200
-Content: paginated list 
+Content: Lista de batalhas 
 ``` 
 
 

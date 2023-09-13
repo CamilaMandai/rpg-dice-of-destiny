@@ -10,7 +10,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: root
-      POSTGRES_DB: rpg
+      POSTGRES_DB: dice_of_destiny
     ports:
       - 5432:5432
 

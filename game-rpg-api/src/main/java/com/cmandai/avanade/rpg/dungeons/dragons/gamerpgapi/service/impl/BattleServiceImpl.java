@@ -1,6 +1,7 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.impl;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.EntityNotFoundException;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.PaginationArgumentsViolationException;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Turn;
@@ -59,6 +60,17 @@ public class BattleServiceImpl implements BattleService {
     @Override
     public List<Battle> findAll(){
         return battleRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Battle> findAllBattlesByPage(Pageable pageable) {
+        try {
+            return battleRepository.findAll(pageable);
+        } catch(java.lang.IllegalArgumentException exception){
+            throw new PaginationArgumentsViolationException(
+                    exception.getMessage());
+        }
     }
 
     @Transactional(readOnly = true)

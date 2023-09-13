@@ -64,4 +64,20 @@ public class ApiExceptionHandler {
                         exception.getMessage()
                 ));
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorMessage> illegalArgumentException(
+            RuntimeException exception,
+            HttpServletRequest request
+    ) {
+        log.error("Api error - ", exception);
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(
+                        request,
+                        HttpStatus.UNPROCESSABLE_ENTITY,
+                        exception.getMessage()
+                ));
+    }
 }

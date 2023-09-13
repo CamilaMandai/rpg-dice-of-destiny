@@ -14,4 +14,6 @@ import java.util.List;
 public interface BattleRepository extends JpaRepository<Battle, Long> {
     @Query("SELECT b FROM Battle b WHERE LOWER(b.playerName) LIKE %:searchPlayerName%")
     List<Battle> searchByPlayerName(@Param("searchPlayerName") String searchPlayerName);
+
+    Page<Battle> findAll(Pageable pageable);
 }

@@ -1,18 +1,20 @@
 package com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.controller;
 
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Battle;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Turn;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.BattleService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.HistoryService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.TurnService;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.BattleLogsDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.characterDTO.CharacterResponseDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.web.dto.mapper.CharacterMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +31,13 @@ public class HistoryController {
     public ResponseEntity<List<Battle>> getAllBattles() {
         List<Battle> battles = battleService.findAll();
         return ResponseEntity.ok(battles);
+    }
+
+    @GetMapping("/battles")
+    public ResponseEntity<Page<Battle>> getBattles(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(battleService.findAllBattlesByPage(pageable));
     }
 
     @GetMapping("battles/{id}")
@@ -51,8 +60,9 @@ public class HistoryController {
         return historyService.findBattleByIdAndTurnRound(roundNumber, battleId);
     }
 
-    @GetMapping("{searchPlayerName}")
-    public List<Battle> searchByPlayerName(@PathVariable String searchPlayerName) {
-        return battleService.searchByPlayerName(searchPlayerName);
+    @GetMapping("/search")
+    public ResponseEntity<List<Battle>> getByNameTerm(@RequestParam(name = "player-name") String nameTerm) {
+        List<Battle> battles = battleService.searchByPlayerName(nameTerm);
+        return ResponseEntity.ok(battles);
     }
 }

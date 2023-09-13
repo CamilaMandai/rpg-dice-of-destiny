@@ -13,5 +13,6 @@ public interface BattleService {
     public Battle save(Battle battle);
     public Battle findById(Long id);
     public List<Battle> findAll();
+    public Page<Battle> findAllBattlesByPage(Pageable pageable);
     public List<Battle> searchByPlayerName(String playerName);
 }

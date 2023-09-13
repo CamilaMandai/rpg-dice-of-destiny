@@ -37,7 +37,7 @@ Este aplicativo é um jogo de interpretação de papéis (RPG) de batalhas épic
 3. Execute o projeto
 4. O projeto estará disponivel em: http://localhost:8080/docs-rpg/swagger-ui/index.html
 
-## Exemplos de alguns endpoints:
+## Exemplos de alguns endpoints
 
 ### Crie um novo personagem
 
@@ -136,6 +136,10 @@ http://localhost:8080/history-log/search?player-name=camila
 
 Response: HTTP 200
 Content: Lista de batalhas 
-``` 
+```
 
+## A aplicação foi desenvolvida utilizando arquitetura em camadas: 
 
+### As principais camadas podem ser visualizadas no diagrama: 
+
+<img src="rpgLayersDiagrams.png" width="650">

@@ -10,26 +10,37 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/characters")
+@RequestMapping("characters")
 public class CharacterController {
 
     private final CharacterService characterService;
 
     @PostMapping
-    public ResponseEntity<CharacterResponseDTO> create(@Valid @RequestBody CharacterCreateDTO characterDTO){
+    public ResponseEntity<CharacterResponseDTO> create(
+            @Valid @RequestBody CharacterCreateDTO characterDTO,
+            UriComponentsBuilder uriBuilder){
         Character newCharacter = characterService.save(CharacterMapper.toCharacter(characterDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).body(CharacterMapper.toDTO(newCharacter));
+        URI uri = uriBuilder.path("characters/{id}").buildAndExpand(newCharacter.getId()).toUri();
+        return ResponseEntity.created(uri).body(CharacterMapper.toDTO(newCharacter));
     }
 
     @GetMapping("{id}")
     public ResponseEntity<CharacterResponseDTO> getById(@PathVariable Long id){
         Character character = characterService.findById(id);
         return ResponseEntity.ok(CharacterMapper.toDTO(character));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<CharacterResponseDTO>> getByNameTerm(@RequestParam(name = "name") String nameTerm) {
+        List<Character> characters = characterService.findByTermName(nameTerm);
+        return ResponseEntity.ok(CharacterMapper.toListDTO(characters));
     }
 
     @GetMapping

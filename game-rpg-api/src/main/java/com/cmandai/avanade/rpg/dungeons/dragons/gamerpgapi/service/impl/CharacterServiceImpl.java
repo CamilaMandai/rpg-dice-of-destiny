@@ -41,6 +41,14 @@ public class CharacterServiceImpl implements CharacterService {
                         String.format("Character with id %s not found", id))
         );
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Character> findByTermName(String searchTerm) {
+        return characterRepository.findByNameTerm(searchTerm);
+    }
+
+
     @Override
     @Transactional(readOnly = true)
     public List<Character> findAll() {

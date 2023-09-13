@@ -5,6 +5,7 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.*;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.*;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Rand;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,39 +43,41 @@ public class GameServiceImpl implements GameService {
         return battle;
     }
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public Long attack(Long battleId, Integer turnRound) {
-//        List<Turn> turns = turnService.findAllByBattleId(battleId);
-//        if(turnRound > turns.size()){
-//            throw new EntityNotFoundException(
-//                    String.format("Game over at round %s", turns.size())
-//            );
-//        }
-//        return turnService.findByRoundAndBattle(turnRound, battleId).getAtackPoints();
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public Long attack(Long battleId, Integer turnRound) {
+        List<Turn> turns = turnService.findAllByBattleId(battleId);
+        if(turnRound > turns.size()){
+            throw new EntityNotFoundException(
+                    String.format("Game over at round %s", turns.size())
+            );
+        }
+        return turnService.findByRoundAndBattle(turnRound, battleId).getAtackPoints();
+    }
+
 
     @Override
     @Transactional(readOnly = true)
-    public Long move(Long battleId, Integer turnRound, String action) {
+    public Long defend(Long battleId, Integer turnRound) {
         List<Turn> turns = turnService.findAllByBattleId(battleId);
-        if(turns.size()==0){
-            throw new EntityNotFoundException(
-                    String.format("Battle with id %s does not exist", battleId)
-            );
-        }
         if(turnRound > turns.size()){
             throw new EntityNotFoundException(
-                    String.format("Game was over at round %s", turns.size())
+                    String.format("Game over at round %s", turns.size())
             );
         }
-        if(action.equals("defend")){
-            return turnService.findByRoundAndBattle(turnRound, battleId).getDefensePoints();
+        return turnService.findByRoundAndBattle(turnRound, battleId).getDefensePoints();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Long damage(Long battleId, Integer turnRound) {
+        List<Turn> turns = turnService.findAllByBattleId(battleId);
+        if(turnRound > turns.size()){
+            throw new EntityNotFoundException(
+                    String.format("Game over at round %s", turns.size())
+            );
         }
-        if(action.equals("damage")){
-            return turnService.findByRoundAndBattle(turnRound, battleId).getDamage();
-        }
-        return turnService.findByRoundAndBattle(turnRound, battleId).getAtackPoints();
+        return turnService.findByRoundAndBattle(turnRound, battleId).getDamage();
     }
 
     private void playGame(Fighter firstPlayer, Fighter secondPlayer) {

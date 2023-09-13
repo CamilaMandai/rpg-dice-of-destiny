@@ -32,26 +32,20 @@ public class GameController {
     @PostMapping("attack")
     public ResponseEntity<AttackResponseDTO> attack(@Valid @RequestBody MoveRequestDTO dto) {
         AttackResponseDTO responseDTO = new AttackResponseDTO(
-                gameService.move(dto.battleId(),
-                        dto.round(),
-                        "attack"));
+                gameService.attack(dto.battleId(),dto.round()));
         return ResponseEntity.ok(responseDTO);
     }
 
     @PostMapping("defense")
     public ResponseEntity<DefenseResponseDTO> defense(@Valid @RequestBody MoveRequestDTO dto) {
         DefenseResponseDTO responseDTO = new DefenseResponseDTO(
-                gameService.move(dto.battleId(),
-                        dto.round(),
-                        "defend"));
+                gameService.defend(dto.battleId(),dto.round()));
         return ResponseEntity.ok(responseDTO);
     }
     @PostMapping("calculate-damage")
     public ResponseEntity<DamageResponseDTO> damage(@Valid @RequestBody MoveRequestDTO dto) {
         DamageResponseDTO responseDTO = new DamageResponseDTO(
-                gameService.move(dto.battleId(),
-                        dto.round(),
-                        "damage"));
+                gameService.damage(dto.battleId(),dto.round()));
         return ResponseEntity.ok(responseDTO);
     }
 }

@@ -142,4 +142,4 @@ Content: Lista de batalhas
 
 ### As principais camadas podem ser visualizadas no diagrama: 
 
-<img src="rpgLayersDiagrams.png" width="650">
+<img src="dice-of-destiny-diagram.png" width="650">

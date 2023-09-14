@@ -64,7 +64,13 @@ public class CharacterServiceImpl implements CharacterService {
     @Transactional
     public Character update(Long id, Character character) {
         Character currentCharacter = findById(id);
-        BeanUtils.copyProperties(currentCharacter, character);
+        currentCharacter.setLifePoints(character.getLifePoints());
+        currentCharacter.setStrength(character.getStrength());
+        currentCharacter.setDefense(character.getDefense());
+        currentCharacter.setAgility(character.getAgility());
+        currentCharacter.setDiceSides(character.getDiceSides());
+        currentCharacter.setDiceQuantity(character.getDiceQuantity());
+        currentCharacter.setPersonality(character.getPersonality());
         return characterRepository.save(currentCharacter);
     }
 

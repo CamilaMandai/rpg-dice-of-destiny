@@ -13,22 +13,16 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class CharacterUpdateDTO extends CharacterRequest {
-    @NotBlank
     @Min(value = 1, message = "Life Points should be at least 1")
     private Long lifePoints;
-    @NotBlank
     @Min(value = 1, message = "Strength should be at least 1")
     private Long strength;
-    @NotBlank
     @Min(value = 1, message = "Defense should be at least 1")
     private Long defense;
-    @NotBlank
     @Min(value = 1, message = "Agility should be at least 1")
     private Long agility;
-    @NotBlank
     @Min(value = 1, message = "Dice quantity should be at least 1")
     private Integer diceQuantity;
-    @NotBlank
     @Min(value = 4, message = "The number of sides of the dice should be at least 4")
     @Max(value = 100, message = "The number of sides of the dice should not exceed 100")
     private Integer diceSides;

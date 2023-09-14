@@ -52,7 +52,7 @@ public class CharacterController {
     @PutMapping("{id}")
     public ResponseEntity<CharacterResponseDTO> update(
             @PathVariable Long id,
-            @RequestBody CharacterUpdateDTO dto) {
+            @Valid @RequestBody CharacterUpdateDTO dto) {
         Character updatedCharacter = characterService.update(id, CharacterMapper.toCharacter(dto));
         return ResponseEntity.ok(CharacterMapper.toDTO(updatedCharacter));
     }

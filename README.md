@@ -146,6 +146,10 @@ Content: Lista de batalhas
 
 ## Testes automatizados
 
+Para os testes, foi utilizado o banco de dados em memória H2 com as mesmas entidades 
+do banco da aplicação. Foi feita a inserção de dados no início de cada
+método de teste e remoção de dados após o término do método.
+
 ### Testes de Ponta-a-ponta
 
 Até o momento foram implementados testes de ponta-a-ponta para

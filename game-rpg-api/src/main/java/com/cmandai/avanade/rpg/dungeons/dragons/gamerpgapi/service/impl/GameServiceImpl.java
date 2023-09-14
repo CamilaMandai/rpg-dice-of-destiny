@@ -4,6 +4,12 @@ import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.exception.EntityNotFo
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.*;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.model.Character;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.*;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.AttackReturnDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.CreatedBattleDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.DamageReturnDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.service.dto.DefenseReturnDTO;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Dice;
+import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.GameMove;
 import com.cmandai.avanade.rpg.dungeons.dragons.gamerpgapi.utils.Rand;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +34,13 @@ public class GameServiceImpl implements GameService {
     private Integer round=1;
 
     @Override
-    public Battle play(String playerName, Character iPlayer, Character iBot) {
+    public CreatedBattleDTO play(String playerName, Character iPlayer, Character iBot) {
         player = new Fighter(iPlayer);
         bot = iBot == null ? new Fighter(Rand.randomMonster(characterService)) : new Fighter(iBot);
         battle = battleService.save(playerName, player.getCharacter(), bot.getCharacter());
-        boolean playerStarts = player.rollDiceToStart()>bot.rollDiceToStart();
+        Integer playerDice = player.rollDiceToStart();
+        Integer botDice = bot.rollDiceToStart();
+        boolean playerStarts = playerDice>botDice;
         battle.setWhoStarts(playerStarts ? Battle.WhoStarts.PLAYER : Battle.WhoStarts.BOT);
         if (playerStarts) {
             playGame(player, bot);
@@ -40,43 +48,7 @@ public class GameServiceImpl implements GameService {
             playGame(bot, player);
         }
         turnService.saveMany(turns);
-        return battle;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Long attack(Long battleId, Integer turnRound) {
-        List<Turn> turns = turnService.findAllByBattleId(battleId);
-        if(turnRound > turns.size()){
-            throw new EntityNotFoundException(
-                    String.format("Game over at round %s", turns.size())
-            );
-        }
-        return turnService.findByRoundAndBattle(turnRound, battleId).getAtackPoints();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Long defend(Long battleId, Integer turnRound) {
-        List<Turn> turns = turnService.findAllByBattleId(battleId);
-        if(turnRound > turns.size()){
-            throw new EntityNotFoundException(
-                    String.format("Game over at round %s", turns.size())
-            );
-        }
-        return turnService.findByRoundAndBattle(turnRound, battleId).getDefensePoints();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Long damage(Long battleId, Integer turnRound) {
-        List<Turn> turns = turnService.findAllByBattleId(battleId);
-        if(turnRound > turns.size()){
-            throw new EntityNotFoundException(
-                    String.format("Game over at round %s", turns.size())
-            );
-        }
-        return turnService.findByRoundAndBattle(turnRound, battleId).getDamage();
+        return new CreatedBattleDTO(playerDice, botDice, battle);
     }
 
     private void playGame(Fighter firstPlayer, Fighter secondPlayer) {
@@ -105,6 +77,33 @@ public class GameServiceImpl implements GameService {
 
     private boolean isGameOver() {
         return player.getLifePoints() == 0 || bot.getLifePoints() == 0;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AttackReturnDTO attack(Long battleId, Integer turnRound) {
+        List<Turn> turns = turnService.findAllByBattleId(battleId);
+        GameMove.roundValidation(turnRound, turns);
+        Turn turn = turns.stream().filter(t -> t.getRound() == turnRound).findFirst().get();
+        return GameMove.getAttack(turns,turnRound, turn.getAtackPoints());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DefenseReturnDTO defend(Long battleId, Integer turnRound) {
+        List<Turn> turns = turnService.findAllByBattleId(battleId);
+        GameMove.roundValidation(turnRound, turns);
+        Turn turn = turns.stream().filter(t -> t.getRound() == turnRound).findFirst().get();
+        return GameMove.getDefense(turns, turnRound, turn.getDefensePoints());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DamageReturnDTO damage(Long battleId, Integer turnRound) {
+        List<Turn> turns = turnService.findAllByBattleId(battleId);
+        GameMove.roundValidation(turnRound, turns);
+        Turn turn = turns.stream().filter(t -> t.getRound() == turnRound).findFirst().get();
+        return GameMove.getDamage(turns, turnRound, turn.getDamage());
     }
 
 }

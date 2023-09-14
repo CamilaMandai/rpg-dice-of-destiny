@@ -39,16 +39,16 @@ Este aplicativo é um jogo de interpretação de papéis (RPG) de batalhas épic
 
 ## Como jogar
 
-1. A aplicação já sobe com o banco de dados populado com alguns personagens, no entanto, você pode criar seus próprios 
+1. Primeiro, você pode criar seus próprios 
 personagens (http://localhost:8080/docs-rpg/swagger-ui/index.html#/character-controller/create)
-2. Para escolher os personagens, você pode listá-los e visualizar os detalhes de cada um (http://localhost:8080/docs-rpg/swagger-ui/index.html#/character-controller/getAll)
-3. Para iniciar o jogo, coloque seu nome, o id do seu personagem e você pode ou não escolher o seu rival (http://localhost:8080/docs-rpg/swagger-ui/index.html#/game-controller/play). Caso
+2. Depois, pode escolher entre os personagens criados. Para os detalhes de cada um pode listar todos eles (http://localhost:8080/docs-rpg/swagger-ui/index.html#/character-controller/getAll)
+3. Para iniciar o jogo, coloque seu nome, o id do seu personagem. Você pode ou não escolher o seu rival (http://localhost:8080/docs-rpg/swagger-ui/index.html#/game-controller/play). Caso
 não escolha um rival, um Monstro será sorteado para duelar com você.
 4. Nesta aplicação, logo que um jogo inicia, toda a batalha acontece. Esta é uma solução de prioriza a redução de acesso ao banco, uma vez que todos os turnos são salvos de uma vez.
 4. Para atacar (ver as informações de ataque) informe em qual batalha e em quando round está (http://localhost:8080/docs-rpg/swagger-ui/index.html#/game-controller/attack)
 5. Para defender (ver as informações de defesa) informe a batalha e o round(http://localhost:8080/docs-rpg/swagger-ui/index.html#/game-controller/defense)
 6. Para saber o dano (ver as informações de dano), informe a batalha e o round(http://localhost:8080/docs-rpg/swagger-ui/index.html#/game-controller/damage)
-7. Caso queira ver os informções de cada batalha e turnos, pode ver as opções de visualização de logs de batalhas (http://localhost:8080/docs-rpg/swagger-ui/index.html#/history-controller)
+7. Caso queira ver os informções de cada batalha e turnos, pode acessar os endpoints de logs de batalhas (http://localhost:8080/docs-rpg/swagger-ui/index.html#/history-controller)
 
 ## Exemplos de alguns endpoints
 

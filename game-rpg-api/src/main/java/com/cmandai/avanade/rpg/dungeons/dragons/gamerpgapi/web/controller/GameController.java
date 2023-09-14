@@ -21,7 +21,7 @@ public class GameController {
     private final CharacterService characterService;
     private final GameService gameService;
     @PostMapping("play")
-    public ResponseEntity<Battle> play(@RequestBody PlayRequestDTO dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Battle> play(@Valid @RequestBody PlayRequestDTO dto, UriComponentsBuilder uriBuilder) {
         Character playerCharacter = characterService.findById(dto.playerCharacterId());
         Character botCharacter = (dto.botCharacterId() != null) ? characterService.findById(dto.botCharacterId()) : null;
         Battle battle = gameService.play(dto.playerName(), playerCharacter, botCharacter);

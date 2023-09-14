@@ -143,3 +143,15 @@ Content: Lista de batalhas
 ### As principais camadas podem ser visualizadas no diagrama: 
 
 <img src="dice-of-destiny-diagram.png" width="650">
+
+## Testes automatizados
+
+### Testes de Ponta-a-ponta
+
+Até o momento foram implementados testes de ponta-a-ponta para
+os endpoints de gestão de Personagens e para os endpoints
+de Jogo (play, atacar, defender e calcular dano). Como próximos testes, será priorizada a
+implementação de testes de ponta-a-ponta dos endpoints dos logs de batalhas. 
+
+### Demais testes
+Posteriormente, serão implementados testes unitário e demais testes de integração.
